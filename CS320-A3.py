@@ -55,10 +55,13 @@ def solve_1(x):
                 if len(matrix_array[i][0]) != 0:
                     next_interval_start = matrix_array[i][0][0] # (value)
                     next_interval_end = matrix_array[i][1][0] # (value)
-                    if next_interval_start == next_interval_end:
-                        '''if a timeslot is instantenous then it's a freebie add to A'''
-                        A.append([matrix_array[i][0].pop(0),matrix_array[i][1].pop(0)])
-                    elif next_interval_start <= interval_end and next_interval_end >= interval_end:
+                    #if next_interval_start == next_interval_end:
+                        #'''if a timeslot is instantenous then it's a freebie add to A'''
+                        #A.append([matrix_array[i][0].pop(0),matrix_array[i][1].pop(0)])
+                    if next_interval_start <= interval_end and next_interval_end >= interval_end:
+                        del(matrix_array[i][0][0])
+                        del(matrix_array[i][1][0])
+                    elif [next_interval_start, next_interval_end] in A:
                         del(matrix_array[i][0][0])
                         del(matrix_array[i][1][0])
                     else:
@@ -71,10 +74,13 @@ def solve_1(x):
         print(len(A))
 
 x = [
-    [[1,0,3],[3,2,4]],
-    [[0,1,1,4],[3,2,3,4]],
-    [[0,3,5,3,2],[2,4,6,6,4]],
-    [[1,1,1,1,1],[1,2,3,4,5]]
+    [[1,0,3],[3,2,4]], # 2
+    [[0,1,1,4],[3,2,3,4]], # 2
+    [[0,3,5,3,2],[2,4,6,6,4]], # 3
+    [[1,1,1,1,1],[1,2,3,4,5]], #1
+    [[1,2,3,4],[1,2,3,4]], # 4
+    [[1,1,2,1],[1,4,2,1]], # 2
+    [[1,2,1,1,1,1],[1,2,2,3,4,5]] # 2
     ]
 
 print(solve_1(x))
